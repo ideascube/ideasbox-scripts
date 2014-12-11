@@ -10,12 +10,6 @@ check() {
 	fi
 }
 
-# check if root
-if [ `id -u` != '0' ]; then
-	echo "You need to be root to execute this script."
-	exit 0
-fi
-
 CONFIG_DIR="/etc/hostapd"
 
 # add hostapd repository

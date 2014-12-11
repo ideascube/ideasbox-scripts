@@ -10,12 +10,6 @@ check() {
 	fi
 }
 
-# check if root
-if [ `id -u` != '0' ]; then
-	echo "You need to be root to execute this script."
-	exit 0
-fi
-
 # update package list and install iptables
 echo -n "Update package list and install iptables: "
 sudo apt-get update && sudo apt-get -y install iptables

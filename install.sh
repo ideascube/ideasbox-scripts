@@ -19,3 +19,6 @@ for SCRIPT in $ALL_INSTALL; do
 		fi
 	fi
 done
+
+# Update serveur
+sudo apt-get update && sudo apt-get upgrade

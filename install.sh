@@ -3,6 +3,9 @@
 # find all conponent to install
 ALL_INSTALL=$(find . -name "install.sh")
 
+# update package list
+sudo apt-get update
+
 # launch each install script
 for SCRIPT in $ALL_INSTALL; do
 	if [[ `dirname $SCRIPT` != '.' ]]; then
@@ -15,4 +18,4 @@ for SCRIPT in $ALL_INSTALL; do
 done
 
 # Update serveur
-sudo apt-get update && sudo apt-get upgrade
+sudo apt-get upgrade

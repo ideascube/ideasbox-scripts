@@ -11,6 +11,6 @@ check() {
 }
 
 # update package list and install hostapd
-echo -n "Update package list and install hostapd: "
-sudo apt-get update && sudo apt-get -y install openssh-server
+echo -n "Install hostapd: "
+sudo apt-get -y install openssh-server
 check

@@ -11,13 +11,13 @@ check() {
 }
 
 # update package list and install iptables
-echo -n "Update package list and install iptables: "
-sudo apt-get update && sudo apt-get -y install iptables
+echo -n "Install iptables: "
+sudo apt-get -y install iptables
 check
 
 # authorise NAT
 echo -n "Authorize NAT: "
-sudo sed -ri s:^#net.ipv4.ip_forward=1$:^net.ipv4.ip_forward=1$: /etc/sysctl.conf
+sudo sed -ri s:^#net.ipv4.ip_forward=1$:net.ipv4.ip_forward=1: /etc/sysctl.conf
 check
 
 # reload sysctl conf

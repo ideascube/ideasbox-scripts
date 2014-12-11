@@ -13,8 +13,8 @@ check() {
 CONFIG_DIR="/etc"
 
 # update package list and install dnsmaq
-echo -n "Update package list and install dnsmaq: "
-sudo apt-get update && sudo apt-get install dnsmasq
+echo -n "Install dnsmaq: "
+sudo apt-get install dnsmasq
 check
 
 # backup default configuration
@@ -24,5 +24,5 @@ check
 
 # put our dnsmaq.conf file
 echo -n "Copying config file"
-sudo mv ./dnsmasq.cong $CONFIG_DIR
+sudo mv ./dnsmasq.conf $CONFIG_DIR
 check

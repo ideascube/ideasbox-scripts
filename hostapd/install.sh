@@ -29,7 +29,7 @@ check
 
 # put our hostapd.conf file
 echo -n "Copying config file: "
-sudo mv ./hostapd.cong $CONFIG_DIR
+sudo mv ./hostapd.conf $CONFIG_DIR
 check
 
 # set default conf file in hostapd service file

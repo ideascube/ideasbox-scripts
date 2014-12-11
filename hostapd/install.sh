@@ -34,6 +34,11 @@ sudo mv $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back
 check
 
 # put our hostapd.conf file
-echo -n "Copying config file"
+echo -n "Copying config file: "
 sudo mv ./hostapd.cong $CONFIG_DIR
+check
+
+# set default conf file in hostapd service file
+echo -n "Update hostapd service file: "
+sudo sed -ri s:^DAEMON_CONF=$:DAEMON_CONF=/etc/hostapd/hostapd.conf: /etc/init.d/hostapd
 check

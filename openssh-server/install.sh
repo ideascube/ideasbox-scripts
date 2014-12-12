@@ -1,16 +1,12 @@
 #!/bin/bash
 
-check() {
-	if [[ "$?" -eq 0 ]]; then
-		echo -e "\033[32mOK\033[0m"
-	else
-		echo -e "\033[31mKO\033[0m"
-		read -p "Press any key to pass this install"
-		exit 1
-	fi
-}
+if [[ -z "$1" ]]; then
+	LOG_FILE="install.log"
+else
+	LOG_FILE="$1"
+fi
 
 # update package list and install hostapd
 echo -n "Install hostapd: "
-sudo apt-get -y install openssh-server
+sudo apt-get -y install openssh-server >> $LOG_FILE 2>> $LOG_FILE
 check

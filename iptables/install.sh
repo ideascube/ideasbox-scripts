@@ -6,6 +6,13 @@ else
 	LOG_FILE="$1"
 fi
 
+ls res > /dev/null 2> /dev/null
+if [[ $? -eq 0 ]]; then
+	source res/check.sh
+else
+	source ../res/check.sh
+fi
+
 # install iptables
 echo -n "Install iptables: "
 sudo apt-get -y install iptables >> $LOG_FILE 2>> $LOG_FILE

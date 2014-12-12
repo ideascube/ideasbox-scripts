@@ -37,6 +37,7 @@ init_install() {
 			mv install.log install.log.old
 		fi
 		source res/check.sh
+		sudo ls > /dev/null 2> /dev/null
 		update_package_list
 		FIRST_TIME=NOPE
 	fi

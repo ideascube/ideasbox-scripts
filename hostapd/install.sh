@@ -9,8 +9,10 @@ fi
 ls res > /dev/null 2> /dev/null
 if [[ $? -eq 0 ]]; then
 	source res/check.sh
+	CONF_PATH="hostapd"
 else
 	source ../res/check.sh
+	CONF_PATH="."
 fi
 
 CONFIG_DIR="/etc/hostapd"
@@ -27,13 +29,15 @@ sudo apt-get -y install hostapd >> $LOG_FILE 2>> $LOG_FILE
 check
 
 # backup default configuration
-echo -n "Back-up default hostapd configuration: "
-sudo mv $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back >> $LOG_FILE 2>> $LOG_FILE
-check
+if [[ -f "$CONFIG_DIR" ]]; then
+	echo -n "Back-up default hostapd configuration: "
+	sudo mv $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back >> $LOG_FILE 2>> $LOG_FILE
+	check
+fi
 
 # put our hostapd.conf file
 echo -n "Copying config file: "
-sudo mv ./hostapd.conf $CONFIG_DIR >> $LOG_FILE 2>> $LOG_FILE
+sudo mv $CONF_PATH/hostapd.conf $CONFIG_DIR/ >> $LOG_FILE 2>> $LOG_FILE
 check
 
 # set default conf file in hostapd service file

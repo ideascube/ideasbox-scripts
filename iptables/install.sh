@@ -25,7 +25,7 @@ check
 
 # reload sysctl conf
 echo -n "Reload sysctl conf: "
-sudo sysctl -p
+sudo sysctl -p >> $LOG_FILE 2>> $LOG_FILE
 check
 
 # create iptables rules

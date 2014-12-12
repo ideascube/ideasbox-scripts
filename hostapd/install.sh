@@ -15,7 +15,8 @@ check
 
 # update package list and install hostapd
 echo -n "Update package list and install hostapd: "
-sudo apt-get update && sudo apt-get -y install hostapd >> $LOG_FILE 2>> $LOG_FILE
+sudo apt-get update >> $LOG_FILE 2>> $LOG_FILE && \
+sudo apt-get -y install hostapd >> $LOG_FILE 2>> $LOG_FILE
 check
 
 # backup default configuration

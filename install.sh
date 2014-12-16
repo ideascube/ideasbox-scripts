@@ -18,15 +18,13 @@ EoC
 
 install_needed_packages() {
 	# find all conponent to install
-	ALL_INSTALL=$(find . -name "install.sh")
+	ALL_INSTALL=$(find . -name "install.sh" -mindepth 2)
 	# launch each install script
 	for SCRIPT in $ALL_INSTALL; do
-		if [[ `dirname $SCRIPT` != '.' ]]; then
-			if [[ -x $SCRIPT ]]; then
-				sudo $SCRIPT "install.log"
-			else
-				echo "$SCRIPT is not executable"
-			fi
+		if [[ -x $SCRIPT ]]; then
+			sudo $SCRIPT "install.log"
+		else
+			echo "$SCRIPT is not executable"
 		fi
 	done
 }
@@ -41,6 +39,32 @@ init_install() {
 		update_package_list
 		FIRST_TIME=NOPE
 	fi
+}
+
+select_packages_to_install() {
+	PREV="Back to previous menu"
+	PS3="Please enter your choice: "
+	# find package list
+	packages=( `find . -name "install.sh" -mindepth 2 | sed -r "s:\./([a-zA-Z0-9\-]+)/install.sh:\1:"` )
+	while [[ -z "$STOP" ]];
+	do
+		select opt in "${packages[@]}" "$PREV"
+		do
+			if [[ -n "$opt" ]]; then
+				if [[ "$opt" = $PREV ]]; then
+					echo "$PREV"
+					STOP="Yep"
+				else
+					init_install
+					./$opt/install.sh
+				fi
+			else
+				echo "Invalid choice"
+			fi
+			break
+		done
+	done
+	unset $STOP
 }
 
 main_menu() {
@@ -65,7 +89,7 @@ main_menu() {
 					install_needed_packages
 					;;
 				"Select which package to install")
-					init_install
+					select_packages_to_install
 					;;
 				"Quit")
 					unset $FIRST_TIME

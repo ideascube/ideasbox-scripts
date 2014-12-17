@@ -45,7 +45,14 @@ echo -n "Copying config file: "
 sudo cp $CONF_PATH/hostapd.conf $CONFIG_DIR >> $LOG_FILE 2>> $LOG_FILE
 check
 
-# set default conf file in hostapd service file
-echo -n "Update hostapd service file: "
-sudo sed -ri s:^DAEMON_CONF=$:DAEMON_CONF=/etc/hostapd/hostapd.conf: /etc/init.d/hostapd >> $LOG_FILE 2>> $LOG_FILE
-check
+# check if hostapd daemon exist
+if [[ -e "/etc/init.d/hostapd" ]]; then
+	# set default conf file in hostapd service file
+	echo -n "Update hostapd service file: "
+	sudo sed -ri s:^DAEMON_CONF=$:DAEMON_CONF=/etc/hostapd/hostapd.conf: /etc/init.d/hostapd >> $LOG_FILE 2>> $LOG_FILE
+	check
+else
+	echo -n "Copy hostapd daemon in /etc/init.d: "
+	sudo cp $CONFIG_DIR/hostapd /etc/init.d >> $LOG_FILE 2>> $LOG_FILE
+	check
+fi

@@ -18,7 +18,7 @@ EoC
 
 install_needed_packages() {
 	# find all conponent to install
-	ALL_INSTALL=$(find . -name "install.sh" -mindepth 2)
+	ALL_INSTALL=$(find . -mindepth 2 -name "install.sh")
 	# launch each install script
 	for SCRIPT in $ALL_INSTALL; do
 		if [[ -x $SCRIPT ]]; then
@@ -45,7 +45,7 @@ select_packages_to_install() {
 	PREV="Back to previous menu"
 	PS3="Please enter your choice: "
 	# find package list
-	packages=( `find . -name "install.sh" -mindepth 2 | sed -r "s:\./([a-zA-Z0-9\-]+)/install.sh:\1:"` )
+	packages=( `find . -mindepth 2 -name "install.sh" | sed -r "s:\./([a-zA-Z0-9\-]+)/install.sh:\1:"` )
 	while [[ -z "$STOP" ]];
 	do
 		select opt in "${packages[@]}" "$PREV"

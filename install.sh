@@ -64,7 +64,7 @@ select_packages_to_install() {
 			break
 		done
 	done
-	unset $STOP
+	unset STOP
 }
 
 main_menu() {
@@ -92,7 +92,7 @@ main_menu() {
 					select_packages_to_install
 					;;
 				"Quit")
-					unset $FIRST_TIME
+					unset FIRST_TIME
 					STOP="Yep"
 					;;
 				*)
@@ -103,11 +103,11 @@ main_menu() {
 		done
 		echo " "
 	done
-	unset $STOP
+	unset STOP
 }
 
 main() {
-	echo "Welcome in the IdeasBox installer.\n"
+	echo -e "Welcome in the IdeasBox installer.\n"
 	main_menu
 }
 

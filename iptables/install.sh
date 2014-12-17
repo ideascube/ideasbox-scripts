@@ -74,11 +74,21 @@ fi
 
 # create a file with forwarding in /etc/network/if-up.d
 echo -n "Create a file with forwarding: "
-sudo cat > /etc/network/if-up.d/forwarding 2> $LOG_FILE << EoF
+sudo cat > /tmp/forwarding << EoF
 #!/bin/sh
 iptables-restore
 EoF
 check
+
+# move forwarding file to /etc
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Move forwarding file to /etc: "
+	sudo mv /tmp/forwarding /etc/network/if-up.d/forwarding &>> $LOG_FILE
+	check
+else
+	sudo mv /tmp/forwarding /etc/network/if-up.d/forwarding 2>&1 | tee -a $LOG_FILE
+	echo -n "Move forwarding file to /etc: `check`"
+fi
 
 # chmod +x previous file
 if [[ -z "$VERBOSE" ]]; then

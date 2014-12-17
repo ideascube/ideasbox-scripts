@@ -31,7 +31,7 @@ install_needed_packages() {
 
 init_install() {
 	if [[ -z "$FIRST_TIME" ]]; then
-		if [[ -f install.log ]]; then
+		if [[ -e install.log ]]; then
 			mv install.log install.log.old
 		fi
 		source res/check.sh

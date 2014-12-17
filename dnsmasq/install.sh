@@ -23,7 +23,7 @@ sudo apt-get install dnsmasq >> $LOG_FILE 2>> $LOG_FILE
 check
 
 # backup default configuration
-if [[ -f "$CONFIG_DIR/dnsmasq.conf" ]]; then
+if [[ -e "$CONFIG_DIR/dnsmasq.conf" ]]; then
 	echo -n "Back-up default dnsmaq configuration: "
 	sudo cp $CONFIG_DIR/dnsmasq.conf $CONFIG_DIR/dnsmasq.conf.back >> $LOG_FILE 2>> $LOG_FILE
 	check
@@ -35,7 +35,7 @@ sudo cp $CONF_PATH/dnsmasq.conf $CONFIG_DIR >> $LOG_FILE 2>> $LOG_FILE
 check
 
 # backup current network configuration
-if [[ -f "/etv/network/interfaces" ]]; then
+if [[ -e "/etv/network/interfaces" ]]; then
 	echo -n "Backup current network configuration: "
 	sudo cp /etc/network/interfaces /etc/network/interfaces.back >> $LOG_FILE 2>> $LOG_FILE
 	check

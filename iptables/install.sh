@@ -58,13 +58,18 @@ else
 fi
 
 # save iptables to file which will load after start
+echo -n "Save iptables rules: "
+sudo iptables-save > /tmp/iptables.nat 2> $LOG_FILE
+check
+
+# move iptable file to /etc
 if [[ -z "$VERBOSE" ]]; then
-	echo -n "Save iptables rules: "
-	sudo iptables-save > /etc/iptables.nat &>> $LOG_FILE
+	echo -n "Move iptables file to /etc: "
+	sudo mv /tmp/iptables.nat /etc &>> $LOG_FILE
 	check
 else
-	sudo iptables-save > /etc/iptables.nat 2>&1 | tee -a $LOG_FILE
-	echo "Save iptables rules: `check`"
+	sudo mv /tmp/iptables.nat /etc 2>&1 | tee -a $LOG_FILE
+	echo -n "Move iptables file to /etc: `check`"
 fi
 
 # create a file with forwarding in /etc/network/if-up.d

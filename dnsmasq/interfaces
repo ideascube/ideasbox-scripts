@@ -12,4 +12,4 @@ netmask 255.255.255.0
 #wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 iface default inet manual
 
-#up iptables-restore < /etc/iptables.ipv4.nat
+#up iptables-restore < /etc/iptables.nat

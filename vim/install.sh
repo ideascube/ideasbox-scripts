@@ -14,6 +14,11 @@ else
 fi
 
 # update package list and install hostapd
-echo -n "Install vim: "
-sudo apt-get -y install vim &>> $LOG_FILE
-check
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Install vim: "
+	sudo apt-get -y install vim &>> $LOG_FILE
+	check
+else
+	sudo apt-get -y install vim 2>&1 | tee -a $LOG_FILE
+	echo "Install vim: `check`"
+fi

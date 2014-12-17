@@ -14,6 +14,11 @@ else
 fi
 
 # update package list and install hostapd
-echo -n "Install hostapd: "
-sudo apt-get -y install openssh-server &>> $LOG_FILE
-check
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Install hostapd: "
+	sudo apt-get -y install openssh-server &>> $LOG_FILE
+	check
+else
+	sudo apt-get -y install openssh-server 2>&1 | tee -a $LOG_FILE
+	echo "Install hostapd: `check`"
+fi

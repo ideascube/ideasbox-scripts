@@ -14,41 +14,73 @@ else
 fi
 
 # install iptables
-echo -n "Install iptables: "
-sudo apt-get -y install iptables &>> $LOG_FILE
-check
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Install iptables: "
+	sudo apt-get -y install iptables &>> $LOG_FILE
+	check
+else
+	sudo apt-get -y install iptables 2>&1 | tee -a $LOG_FILE
+	echo -n "Install iptables: `check`"
+fi
 
 # authorise NAT
-echo -n "Authorize NAT: "
-sudo sed -ri s:^#net.ipv4.ip_forward=1$:net.ipv4.ip_forward=1: /etc/sysctl.conf &>> $LOG_FILE
-check
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Authorize NAT: "
+	sudo sed -ri s:^#net.ipv4.ip_forward=1$:net.ipv4.ip_forward=1: /etc/sysctl.conf &>> $LOG_FILE
+	check
+else
+	sudo sed -ri s:^#net.ipv4.ip_forward=1$:net.ipv4.ip_forward=1: /etc/sysctl.conf 2>&1 | tee -a $LOG_FILE
+	echo -n "Authorize NAT: `check`"
+fi
 
 # reload sysctl conf
-echo -n "Reload sysctl conf: "
-sudo sysctl -p &>> $LOG_FILE
-check
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Reload sysctl conf: "
+	sudo sysctl -p &>> $LOG_FILE
+	check
+else
+	sudo sysctl -p 2>&1 | tee -a $LOG_FILE
+	echo -n "Reload sysctl conf: `check`"
+fi
 
 # create iptables rules
-echo -n "Create iptables rules: "
-sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  &>> $LOG_FILE && \
-sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT &>> $LOG_FILE && \
-sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT &>> $LOG_FILE
-check
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Create iptables rules: "
+	sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  &>> $LOG_FILE && \
+	sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT &>> $LOG_FILE && \
+	sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT &>> $LOG_FILE
+	check
+else
+	sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE 2>&1 | tee -a $LOG_FILE && \
+	sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT 2>&1 | tee -a $LOG_FILE && \
+	sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT 2>&1 | tee -a $LOG_FILE
+	echo -n "Create iptables rules:	`check`"
+fi
 
 # save iptables to file which will load after start
-echo -n "Save iptables rules: "
-sudo iptables-save > /etc/iptables.nat &>> $LOG_FILE
-check
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Save iptables rules: "
+	sudo iptables-save > /etc/iptables.nat &>> $LOG_FILE
+	check
+else
+	sudo iptables-save > /etc/iptables.nat 2>&1 | tee -a $LOG_FILE
+	echo "Save iptables rules: `check`"
+fi
 
 # create a file with forwarding in /etc/network/if-up.d
 echo -n "Create a file with forwarding: "
-sudo cat > /etc/network/if-up.d/forwarding << EoF
+sudo cat > /etc/network/if-up.d/forwarding 2> $LOG_FILE << EoF
 #!/bin/sh
 iptables-restore
 EoF
 check
 
 # chmod +x previous file
-echo -n "Give execution right to previously created script: "
-sudo chmod +x /etc/network/if-up.d/forwarding &>> $LOG_FILE
-check
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Give execution right to previously created script: "
+	sudo chmod +x /etc/network/if-up.d/forwarding &>> $LOG_FILE
+	check
+else
+	sudo chmod +x /etc/network/if-up.d/forwarding 2>&1 | tee -a $LOG_FILE
+	echo "Give execution right to previously created script: `check`"
+fi

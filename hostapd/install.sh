@@ -30,18 +30,26 @@ if [[ -z `cd /etc/apt && grep -ir hostapd 2> /dev/null` ]]; then
 		echo "Adding hostapd repository: `check`"
 	fi
 
-	# update package list and install hostapd
+	# update package list
 	if [[ -z "$VERBOSE" ]]; then
 		echo -n "Update package list and install hostapd: "
-		sudo apt-get update &>> $LOG_FILE && \
-		sudo apt-get -y install hostapd &>> $LOG_FILE
+		sudo apt-get update &>> $LOG_FILE
 		check
 	else
-		sudo apt-get update 2>&1 | tee -a $LOG_FILE && \
-		sudo apt-get -y install hostapd 2>&1 | tee -a $LOG_FILE
+		sudo apt-get update 2>&1 | tee -a $LOG_FILE
 		echo "Update package list and install hostapd: `check`"
 	fi
 
+fi
+
+# install hostapd
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Install hostapd: "
+	sudo apt-get -y install hostapd &>> $LOG_FILE
+	check
+else
+	sudo apt-get -y install hostapd 2>&1 | tee -a $LOG_FILE
+	echo "Install hostapd: `check`"
 fi
 
 # backup default configuration

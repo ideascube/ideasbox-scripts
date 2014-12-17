@@ -17,27 +17,32 @@ fi
 
 CONFIG_DIR="/etc/hostapd"
 
-# add hostapd repository
-echo -n "Adding hostapd repository: "
-sudo add-apt-repository -y ppa:andykimpe/hostapd >> $LOG_FILE 2>> $LOG_FILE
-check
+# check if hostapd repository already add
+if [[ -z `cd /etc/apt && grep -ir hostapd 2> /dev/null` ]]; then
 
-# update package list and install hostapd
-echo -n "Update package list and install hostapd: "
-sudo apt-get update >> $LOG_FILE 2>> $LOG_FILE && \
-sudo apt-get -y install hostapd >> $LOG_FILE 2>> $LOG_FILE
-check
+	# add hostapd repository
+	echo -n "Adding hostapd repository: "
+	sudo add-apt-repository -y ppa:andykimpe/hostapd >> $LOG_FILE 2>> $LOG_FILE
+	check
+
+	# update package list and install hostapd
+	echo -n "Update package list and install hostapd: "
+	sudo apt-get update >> $LOG_FILE 2>> $LOG_FILE && \
+	sudo apt-get -y install hostapd >> $LOG_FILE 2>> $LOG_FILE
+	check
+
+fi
 
 # backup default configuration
 if [[ -f "$CONFIG_DIR" ]]; then
 	echo -n "Back-up default hostapd configuration: "
-	sudo mv $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back >> $LOG_FILE 2>> $LOG_FILE
+	sudo cp $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back >> $LOG_FILE 2>> $LOG_FILE
 	check
 fi
 
 # put our hostapd.conf file
 echo -n "Copying config file: "
-sudo mv $CONF_PATH/hostapd.conf $CONFIG_DIR/ >> $LOG_FILE 2>> $LOG_FILE
+sudo cp $CONF_PATH/hostapd.conf $CONFIG_DIR/ >> $LOG_FILE 2>> $LOG_FILE
 check
 
 # set default conf file in hostapd service file

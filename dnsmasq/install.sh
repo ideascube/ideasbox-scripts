@@ -16,6 +16,7 @@ else
 fi
 
 CONFIG_DIR="/etc"
+NETWORK_DIR="/etc/network"
 
 # update package list and install dnsmaq
 if [[ -z "$VERBOSE" ]]; then
@@ -50,13 +51,13 @@ else
 fi
 
 # backup current network configuration
-if [[ -e "/etv/network/interfaces" ]]; then
+if [[ -e "$NETWORK_DIR/interfaces" ]]; then
 	if [[ -z "$VERBOSE" ]]; then
 		echo -n "Backup current network configuration: "
-		sudo cp /etc/network/interfaces /etc/network/interfaces.back &>> $LOG_FILE
+		sudo cp $NETWORK_DIR/interfaces $NETWORK_DIR/interfaces.back &>> $LOG_FILE
 		check
 	else
-		sudo cp /etc/network/interfaces /etc/network/interfaces.back 2>&1 | tee -a $LOG_FILE
+		sudo cp $NETWORK_DIR/interfaces $NETWORK_DIR/interfaces.back 2>&1 | tee -a $LOG_FILE
 		echo "Backup current network configuration: `check`"
 	fi
 fi
@@ -64,9 +65,9 @@ fi
 # put our interfaces file
 if [[ -z "$VERBOSE" ]]; then
 	echo -n "Configuring network: "
-	sudo cp $CONF_PATH/interfaces /etc/network &>> $LOG_FILE
+	sudo cp $CONF_PATH/interfaces $NETWORK_DIR &>> $LOG_FILE
 	check
 else
-	sudo cp $CONF_PATH/interfaces /etc/network 2>&1 | tee -a $LOG_FILE
+	sudo cp $CONF_PATH/interfaces $NETWORK_DIR 2>&1 | tee -a $LOG_FILE
 	echo "Configuring network: `check`"
 fi

@@ -87,3 +87,13 @@ else
 		echo "Copy hostapd daemon in /etc/init.d: `check`"
 	fi
 fi
+
+# add hostapd as service
+if [[ -z "$VERBOSE" ]]; then
+	echo -n "Add hostapd to services: "
+	sudo update-rc.d hostapd defaults &>> $LOG_FILE
+	check
+else
+	sudo update-rc.d hostapd defaults 2>&1 | tee -a $LOG_FILE
+	echo -n "Add hostapd to services: `check`"
+fi

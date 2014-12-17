@@ -53,6 +53,6 @@ if [[ -e "/etc/init.d/hostapd" ]]; then
 	check
 else
 	echo -n "Copy hostapd daemon in /etc/init.d: "
-	sudo cp $CONFIG_DIR/hostapd /etc/init.d >> $LOG_FILE 2>> $LOG_FILE
+	sudo cp $CONF_PATH/hostapd /etc/init.d >> $LOG_FILE 2>> $LOG_FILE
 	check
 fi

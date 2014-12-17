@@ -25,23 +25,23 @@ check
 # backup default configuration
 if [[ -f "$CONFIG_DIR/dnsmasq.conf" ]]; then
 	echo -n "Back-up default dnsmaq configuration: "
-	sudo mv $CONFIG_DIR/dnsmasq.conf $CONFIG_DIR/dnsmasq.conf.back >> $LOG_FILE 2>> $LOG_FILE
+	sudo cp $CONFIG_DIR/dnsmasq.conf $CONFIG_DIR/dnsmasq.conf.back >> $LOG_FILE 2>> $LOG_FILE
 	check
 fi
 
 # put our dnsmaq.conf file
 echo -n "Copying config file"
-sudo mv $CONF_PATH/dnsmasq.conf $CONFIG_DIR >> $LOG_FILE 2>> $LOG_FILE
+sudo cp $CONF_PATH/dnsmasq.conf $CONFIG_DIR >> $LOG_FILE 2>> $LOG_FILE
 check
 
 # backup current network configuration
 if [[ -f "/etv/network/interfaces" ]]; then
 	echo -n "Backup current network configuration: "
-	sudo mv /etc/network/interfaces /etc/network/interfaces.back >> $LOG_FILE 2>> $LOG_FILE
+	sudo cp /etc/network/interfaces /etc/network/interfaces.back >> $LOG_FILE 2>> $LOG_FILE
 	check
 fi
 
 # put our interfaces file
 echo -n "Configuring network: "
-sudo mv $CONF_PATH/interfaces /etc/network >> $LOG_FILE 2>> $LOG_FILE
+sudo cp $CONF_PATH/interfaces /etc/network >> $LOG_FILE 2>> $LOG_FILE
 check

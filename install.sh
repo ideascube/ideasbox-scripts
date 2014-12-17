@@ -3,14 +3,14 @@
 update_package_list() {
 	# update package list
 	echo -n "Update package list: "
-	sudo apt-get update >> install.log 2>> install.log
+	sudo apt-get update &>> install.log
 	check wait
 }
 
 update_package() {
 	# update serveur
 	echo -n "Update package: "
-	sudo apt-get upgrade >> install.log 2>> install.log << EoC
+	sudo apt-get upgrade &>> install.log << EoC
 Y
 EoC
 	check wait
@@ -35,7 +35,7 @@ init_install() {
 			mv install.log install.log.old
 		fi
 		source res/check.sh
-		sudo ls > /dev/null 2> /dev/null
+		sudo ls &> /dev/null
 		update_package_list
 		FIRST_TIME=NOPE
 	fi

@@ -15,5 +15,5 @@ fi
 
 # update package list and install hostapd
 echo -n "Install vim: "
-sudo apt-get -y install vim >> $LOG_FILE 2>> $LOG_FILE
+sudo apt-get -y install vim &>> $LOG_FILE
 check

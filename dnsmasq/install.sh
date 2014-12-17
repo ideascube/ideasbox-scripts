@@ -33,3 +33,15 @@ fi
 echo -n "Copying config file"
 sudo mv $CONF_PATH/dnsmasq.conf $CONFIG_DIR >> $LOG_FILE 2>> $LOG_FILE
 check
+
+# backup current network configuration
+if [[ -f "/etv/network/interfaces" ]]; then
+	echo -n "Backup current network configuration: "
+	sudo mv /etc/network/interfaces /etc/network/interfaces.back >> $LOG_FILE 2>> $LOG_FILE
+	check
+fi
+
+# put our interfaces file
+echo -n "Configuring network: "
+sudo mv $CONF_PATH/interfaces /etc/network >> $LOG_FILE 2>> $LOG_FILE
+check

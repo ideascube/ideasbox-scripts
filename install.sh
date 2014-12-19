@@ -100,8 +100,10 @@ select_packages_to_install() {
 
 update_hostname() {
 	while [[ -z "$hostname" ]]; do
-		echo -n "You can change the hostname when prompt or keep the current one by typyng 'Enter'"
-		echo -n "The current hostname"
+		echo "You can change the hostname when prompt or keep the current one by typyng 'Enter'"
+		echo "If you change the hostname, make it as explicit as possible"
+		echo "The current hostname is: `hostname`"
+		echo -n "Please, enter the hostname: "
 		read hostname
 		if [[ "${#hostname}" -eq 0 ]]; then
 			hostname="nope"

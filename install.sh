@@ -98,13 +98,33 @@ select_packages_to_install() {
 	unset STOP
 }
 
+update_hostname() {
+	while [[ -z "$hostname" ]]; do
+		echo -n "You can change the hostname when prompt or keep the current one by typyng 'Enter'"
+		echo -n "The current hostname"
+		read hostname
+		if [[ "${#hostname}" -eq 0 ]]; then
+			hostname="nope"
+		elif [[ "${#hostname}" -lt 4 ]]; then
+			echo "Hostname too short"
+			unset hostname
+		else
+			sudo sed -i "s/.*/$hostname/" /etc/hostname
+			sudo sed -ir "s/(127.0.1.1\s+)[a-zA-Z0-9_-]+/\1$hostname/" /etc/hosts
+			sudo hostname $hostname
+		fi
+	done
+	unset hostname
+}
+
 main_menu() {
 	PS3="Please enter your choice: "
-	options=("Full install" "Update packages" "Install all needed package" "Select which package to install")
+	options=("Full install" "Update packages" "Install all needed package" "Select which package to install" "Change hostname")
 	while [[ -z "$STOP" ]]; do
 		select opt in "${options[@]}" "Quit"; do
 			case $opt in
 				"Full install")
+					update_hostname
 					init_install
 					update_package
 					install_needed_packages
@@ -119,6 +139,9 @@ main_menu() {
 					;;
 				"Select which package to install")
 					select_packages_to_install
+					;;
+				"Change hostname")
+					update_hostname
 					;;
 				"Quit")
 					unset FIRST_TIME

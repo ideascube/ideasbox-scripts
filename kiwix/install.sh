@@ -1,4 +1,4 @@
-URL=http://download.kiwix.org/bin/0.9/kiwix-0.9-linux-x86_64.tar.bz2
+URL=http://download.kiwix.org/bin/kiwix-linux-x86_64.tar.bz2
 ARCHIVE=kiwix-0.9-linux-x86_64.tar.bz2
 BIN=kiwix-serve
 FROM_BIN="kiwix/bin/$BIN"

@@ -20,7 +20,7 @@ DAEMON=/usr/local/bin/kiwix-serve
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 PORT=8002
-DATAPATH=/usr/local/share/kiwix/data/library/wikipedia_br_all_nopic_2015-01.zim.xml
+DATAPATH=/usr/local/share/kiwix/data/library/library.xml
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0

@@ -71,3 +71,13 @@ else
 	sudo cp $CONF_PATH/interfaces $NETWORK_DIR 2>&1 | tee -a $LOG_FILE
 	echo "Configuring network: `check`"
 fi
+
+# http://seravo.fi/2014/create-wireless-access-point-hostapd
+LINE="iptables -t nat -A POSTROUTING -s 192.168.2.0/24 ! -d 192.168.2.0/24  -j MASQUERADE"
+FILE="/etc/rc.local"
+MATCH="exit 0"
+if ! grep -qF "$LINE" $FILE
+then
+    # Insert iptables before last line
+    sed -i "s/$MATCH/$LINE\n$MATCH/" $FILE
+fi

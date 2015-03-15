@@ -6,7 +6,7 @@ CURRENT=$PWD
 if [ ! -d "$ROOT" ]
 then
     echo "Cloning $URL"
-    git clone $URL $ROOT
+    git clone --recursive $URL $ROOT
 fi
 
 cd $ROOT

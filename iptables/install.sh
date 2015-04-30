@@ -76,7 +76,7 @@ fi
 echo -n "Create a file with forwarding: "
 sudo cat > /tmp/forwarding << EoF
 #!/bin/sh
-iptables-restore
+iptables-restore /etc/iptables.nat
 EoF
 check
 

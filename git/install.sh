@@ -3,7 +3,7 @@
 LOG_FILE="install.log"
 source res/check.sh
 
-# install nginx
+# install git
 if [[ -z "$VERBOSE" ]]; then
 	echo -n "Install git: "
 	sudo apt-get -y install git &>> $LOG_FILE

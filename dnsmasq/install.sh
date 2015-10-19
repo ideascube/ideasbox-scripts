@@ -1,5 +1,6 @@
 #!/bin/bash
 
+NOW=$(date +%Y%m%d%H%M)
 if [[ -z "$1" ]]; then
 	LOG_FILE="install.log"
 else
@@ -32,10 +33,10 @@ fi
 if [[ -e "$CONFIG_DIR/dnsmasq.conf" ]]; then
 	if [[ -z "$VERBOSE" ]]; then
 		echo -n "Back-up default dnsmaq configuration: "
-		sudo cp $CONFIG_DIR/dnsmasq.conf $CONFIG_DIR/dnsmasq.conf.back &>> $LOG_FILE
+		sudo cp $CONFIG_DIR/dnsmasq.conf $CONFIG_DIR/dnsmasq.conf.back-$NOW &>> $LOG_FILE
 		check
 	else
-		sudo cp $CONFIG_DIR/dnsmasq.conf $CONFIG_DIR/dnsmasq.conf.back 2>&1 | tee -a $LOG_FILE
+		sudo cp $CONFIG_DIR/dnsmasq.conf $CONFIG_DIR/dnsmasq.conf.back-$NOW 2>&1 | tee -a $LOG_FILE
 		echo "Back-up default dnsmaq configuration: `check`"
 	fi
 fi
@@ -54,10 +55,10 @@ fi
 if [[ -e "$NETWORK_DIR/interfaces" ]]; then
 	if [[ -z "$VERBOSE" ]]; then
 		echo -n "Backup current network configuration: "
-		sudo cp $NETWORK_DIR/interfaces $NETWORK_DIR/interfaces.back &>> $LOG_FILE
+		sudo cp $NETWORK_DIR/interfaces $NETWORK_DIR/interfaces.back-$NOW &>> $LOG_FILE
 		check
 	else
-		sudo cp $NETWORK_DIR/interfaces $NETWORK_DIR/interfaces.back 2>&1 | tee -a $LOG_FILE
+		sudo cp $NETWORK_DIR/interfaces $NETWORK_DIR/interfaces.back-$NOW 2>&1 | tee -a $LOG_FILE
 		echo "Backup current network configuration: `check`"
 	fi
 fi

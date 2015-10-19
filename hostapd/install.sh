@@ -1,5 +1,7 @@
 #!/bin/bash
 
+NOW=$(date +%Y%m%d%H%M)
+
 if [[ -z "$1" ]]; then
 	LOG_FILE="install.log"
 else
@@ -56,10 +58,10 @@ fi
 if [[ -e "$CONFIG_DIR/hostapd.conf" ]]; then
 	if [[ -z "$VERBOSE" ]]; then
 		echo -n "Back-up default hostapd configuration: "
-		sudo cp $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back &>> $LOG_FILE
+		sudo cp $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back-$NOW &>> $LOG_FILE
 		check
 	else
-		sudo cp $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back 2>&1 | tee -a $LOG_FILE
+		sudo cp $CONFIG_DIR/hostapd.conf $CONFIG_DIR/hostapd.conf.back-$NOW 2>&1 | tee -a $LOG_FILE
 		echo "Back-up default hostapd configuration: `check`"
 	fi
 fi

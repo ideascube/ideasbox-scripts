@@ -51,7 +51,7 @@ update_package() {
 
 install_needed_packages() {
 	# find all conponent to install
-	ALL_INSTALL=$(find . -mindepth 2 -name "install.sh")
+	ALL_INSTALL=$(find . -mindepth 2 -name "install.sh" | sort)
 	# launch each install script
 	for SCRIPT in $ALL_INSTALL; do
 		if [[ -x $SCRIPT ]]; then

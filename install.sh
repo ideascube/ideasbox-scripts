@@ -162,7 +162,7 @@ main_menu() {
 
 main() {
 	get_param "$@"
-	echo -e "Welcome in the IdeasBox installer.\n"
+	echo -e "Welcome to the IdeasCube installer.\n"
 	main_menu
 }
 

@@ -6,7 +6,7 @@ source res/check.sh
 # install nginx
 if [[ -z "$VERBOSE" ]]; then
         echo -n "Install nginx: "
-        if ps ax | grep -v grep | grep $SERVICE > /dev/null; then
+        if ps ax | grep -v grep | grep apache > /dev/null; then
 			APACHE="running"
 			sudo service apache2 stop
 		fi

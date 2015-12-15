@@ -17,7 +17,7 @@ then
 fi
 
 cd $ROOT
-./setup_unix.sh
+python setup.py install
 
 # Install Nginx vhost
 cd $CURRENT

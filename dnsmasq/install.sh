@@ -22,10 +22,10 @@ NETWORK_DIR="/etc/network"
 # update package list and install dnsmaq
 if [[ -z "$VERBOSE" ]]; then
 	echo -n "Install dnsmaq: "
-	sudo apt-get install dnsmasq &>> $LOG_FILE
+	sudo apt-get install -y dnsmasq &>> $LOG_FILE
 	check
 else
-	sudo apt-get install dnsmasq 2>&1 | tee -a $LOG_FILE
+	sudo apt-get install -y dnsmasq 2>&1 | tee -a $LOG_FILE
 	echo "Install dnsmaq: `check`"
 fi
 

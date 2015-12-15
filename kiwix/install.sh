@@ -1,3 +1,10 @@
+#!/bin/bash
+#
+# Installation of Kiwix daemon (http://download.kiwix.org)
+# 
+# Install the daemon in /usr/local/bin/kiwix-serve
+# Don't install the datas that you should download on Kiwix website
+####
 URL=http://download.kiwix.org/bin/kiwix-linux-x86_64.tar.bz2
 ARCHIVE=kiwix-0.9-linux-x86_64.tar.bz2
 BIN=kiwix-serve
@@ -25,7 +32,7 @@ cd ..
 sudo cp kiwix/kiwix.init /etc/init.d/kiwix
 
 # add kiwix as service
-if [[ -z "$VERBOSE" ]]; then
+if [ -z "$VERBOSE" ]; then
         echo -n "Add kiwix to services: "
         sudo update-rc.d kiwix defaults &>> $LOG_FILE
         check

@@ -10,7 +10,7 @@ fi
 ls res &> /dev/null
 if [[ $? -eq 0 ]]; then
 	source res/check.sh
-	CONF_PATH="dnsmasq"
+	CONF_PATH="06_dnsmasq"
 else
 	source ../res/check.sh
 	CONF_PATH="."

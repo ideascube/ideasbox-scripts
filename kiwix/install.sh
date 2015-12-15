@@ -19,17 +19,17 @@ cd tmp
 if [ ! -f "$ARCHIVE" ]
 then
     echo "Downloading $URL"
-    wget $URL -O $ARCHIVE
+    wget $URL -O $ARCHIVE &>> $LOG_FILE
 fi
-tar xjvf $ARCHIVE
-sudo cp $FROM_BIN $TO_BIN
+tar xjvf $ARCHIVE &>> $LOG_FILE
+sudo cp $FROM_BIN $TO_BIN &>> $LOG_FILE
 
 # Create data dir
-sudo mkdir -p /usr/local/share/kiwix/
+sudo mkdir -p /usr/local/share/kiwix/ &>> $LOG_FILE
 
 # Install service script
 cd ..
-sudo cp kiwix/kiwix.init /etc/init.d/kiwix
+sudo cp kiwix/kiwix.init /etc/init.d/kiwix &>> $LOG_FILE
 
 # add kiwix as service
 if [ -z "$VERBOSE" ]; then
@@ -42,8 +42,8 @@ else
 fi
 
 # Install Nginx vhost
-sudo cp kiwix/nginx.vhost /etc/nginx/sites-available/kiwix
-sudo ln -fs /etc/nginx/sites-available/kiwix /etc/nginx/sites-enabled/kiwix
-sudo service nginx restart
+sudo cp kiwix/nginx.vhost /etc/nginx/sites-available/kiwix &>> $LOG_FILE
+sudo ln -fs /etc/nginx/sites-available/kiwix /etc/nginx/sites-enabled/kiwix &>> $LOG_FILE
+sudo service nginx restart &>> $LOG_FILE
 
 

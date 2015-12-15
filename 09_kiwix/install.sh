@@ -29,7 +29,7 @@ sudo mkdir -p /usr/local/share/kiwix/ &>> $LOG_FILE
 
 # Install service script
 cd ..
-sudo cp kiwix/kiwix.init /etc/init.d/kiwix &>> $LOG_FILE
+sudo cp 09_kiwix/kiwix.init /etc/init.d/kiwix &>> $LOG_FILE
 
 # add kiwix as service
 if [ -z "$VERBOSE" ]; then

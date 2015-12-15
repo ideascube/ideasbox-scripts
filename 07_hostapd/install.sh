@@ -21,7 +21,7 @@ fi
 ls res > /dev/null 2> /dev/null
 if [[ $? -eq 0 ]]; then
 	source res/check.sh
-	CONF_PATH="hostapd"
+	CONF_PATH="07_hostapd"
 else
 	source ../res/check.sh
 	CONF_PATH="."

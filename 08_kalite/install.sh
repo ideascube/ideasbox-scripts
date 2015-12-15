@@ -21,7 +21,7 @@ cd $ROOT
 
 # Install Nginx vhost
 cd $CURRENT
-sudo cp kalite/nginx.vhost /etc/nginx/sites-available/kalite
+sudo cp 08_kalite/nginx.vhost /etc/nginx/sites-available/kalite
 sudo ln -fs /etc/nginx/sites-available/kalite /etc/nginx/sites-enabled/kalite
 sudo service nginx restart
 

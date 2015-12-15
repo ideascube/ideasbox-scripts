@@ -42,7 +42,7 @@ else
 fi
 
 # Install Nginx vhost
-sudo cp kiwix/nginx.vhost /etc/nginx/sites-available/kiwix &>> $LOG_FILE
+sudo cp 09_kiwix/nginx.vhost /etc/nginx/sites-available/kiwix &>> $LOG_FILE
 sudo ln -fs /etc/nginx/sites-available/kiwix /etc/nginx/sites-enabled/kiwix &>> $LOG_FILE
 sudo service nginx restart &>> $LOG_FILE
 

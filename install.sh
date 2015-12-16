@@ -51,7 +51,7 @@ update_package() {
 
 install_needed_packages() {
 	# find all conponent to install
-	ALL_INSTALL=$(find . -mindepth 2 -name "install.sh")
+	ALL_INSTALL=$(find . -mindepth 2 -name "install.sh" | sort)
 	# launch each install script
 	for SCRIPT in $ALL_INSTALL; do
 		if [[ -x $SCRIPT ]]; then
@@ -162,7 +162,7 @@ main_menu() {
 
 main() {
 	get_param "$@"
-	echo -e "Welcome in the IdeasBox installer.\n"
+	echo -e "Welcome to the IdeasCube installer.\n"
 	main_menu
 }
 

@@ -10,7 +10,7 @@ fi
 ls res &> /dev/null
 if [[ $? -eq 0 ]]; then
 	source res/check.sh
-	CONF_PATH="dnsmasq"
+	CONF_PATH="06_dnsmasq"
 else
 	source ../res/check.sh
 	CONF_PATH="."
@@ -22,10 +22,10 @@ NETWORK_DIR="/etc/network"
 # update package list and install dnsmaq
 if [[ -z "$VERBOSE" ]]; then
 	echo -n "Install dnsmaq: "
-	sudo apt-get install dnsmasq &>> $LOG_FILE
+	sudo apt-get install -y dnsmasq &>> $LOG_FILE
 	check
 else
-	sudo apt-get install dnsmasq 2>&1 | tee -a $LOG_FILE
+	sudo apt-get install -y dnsmasq 2>&1 | tee -a $LOG_FILE
 	echo "Install dnsmaq: `check`"
 fi
 

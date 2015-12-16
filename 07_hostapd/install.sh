@@ -1,4 +1,14 @@
 #!/bin/bash
+# IdeasCube Script
+#
+# hostapd installation 
+#
+# 1. install or upgrade the package hostapd
+# 2. backup default configuration
+# 3. copy our hostapd configuration
+# 4. check if hostapd daemon exist, if yes, we change the DAEMON_CONF location, if not, we install it
+#
+#####
 
 NOW=$(date +%Y%m%d%H%M)
 
@@ -11,38 +21,13 @@ fi
 ls res > /dev/null 2> /dev/null
 if [[ $? -eq 0 ]]; then
 	source res/check.sh
-	CONF_PATH="hostapd"
+	CONF_PATH="07_hostapd"
 else
 	source ../res/check.sh
 	CONF_PATH="."
 fi
 
 CONFIG_DIR="/etc/hostapd"
-
-# check if hostapd repository already add
-if [[ -z `cd /etc/apt && grep -ir hostapd 2> /dev/null` ]]; then
-
-	# add hostapd repository
-	if [[ -z "$VERBOSE" ]]; then
-		echo -n "Adding hostapd repository: "
-		sudo add-apt-repository -y ppa:andykimpe/hostapd &>> $LOG_FILE
-		check
-	else
-		sudo add-apt-repository -y ppa:andykimpe/hostapd 2>&1 | tee -a $LOG_FILE
-		echo "Adding hostapd repository: `check`"
-	fi
-
-	# update package list
-	if [[ -z "$VERBOSE" ]]; then
-		echo -n "Update package list and install hostapd: "
-		sudo apt-get update &>> $LOG_FILE
-		check
-	else
-		sudo apt-get update 2>&1 | tee -a $LOG_FILE
-		echo "Update package list and install hostapd: `check`"
-	fi
-
-fi
 
 # install hostapd
 if [[ -z "$VERBOSE" ]]; then
